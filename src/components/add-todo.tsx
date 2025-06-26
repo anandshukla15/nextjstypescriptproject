@@ -7,7 +7,7 @@ const AddTodo = () => {
 
 const handleFormSubmit=(e:FormEvent<HTMLFormElement>)=>{
   e.preventDefault();
-  //handleAddTodo(todo);
+  handleAddTodo(todo);
   settodo("")
 }
 
