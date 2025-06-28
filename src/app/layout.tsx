@@ -29,7 +29,7 @@ export default function RootLayout({
         <TodosProvider>
            {children}
         </TodosProvider>
-        {children}
+        
       </body>
     </html>
   );

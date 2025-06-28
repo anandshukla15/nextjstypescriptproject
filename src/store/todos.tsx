@@ -1,24 +1,27 @@
-"useClient"
+"use client"
 
 import { createContext, ReactNode, useContext, useState } from "react";
 
-export type Todo{
+export type Todo={
     id: string;
     task: string;
     completed: boolean;
     createdAt: Date;
 }
 
-export type todosContext={
+export type TodosContext={
     todos:Todo[];
     handleAddTodo:(task:string)=>void
 }
 
-export const todosContext= createContext<todosContext | null>( null)
+export const todosContext= createContext<TodosContext | null>( null)
+
+
+
+export const TodosProvider=({children}: {children :ReactNode})=>{
 
 const [todos,settodos]=useState<Todo[]>([]);
 
-export const TodosProvider=(children: {children :ReactNode})=>{
     const handleAddTodo=(task: string)=>{
 settodos((prev)=>{
     const newtodos : Todo[]=[{
@@ -29,8 +32,10 @@ settodos((prev)=>{
     },
     ...prev
 ]
-})
 return newtodos;
+}
+)
+
     }
     return (
         <todosContext.Provider value={{todos,handleAddTodo}}>
@@ -40,10 +45,11 @@ return newtodos;
 }
 
 //context api
-export function useTodos{
+export function useTodos(){
     const todosContextValue= useContext(todosContext);
-    if(!todosContext){
+    if(!todosContextValue){
         throw new Error("use todos usde outside of provider");
     }
     return todosContextValue;
 }
+
