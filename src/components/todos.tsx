@@ -2,13 +2,24 @@
 
 import { useTodos } from '@/store/todos'
 import React from 'react'
+import { useSearchParams } from 'next/navigation'
+
 
 const Todos = () => {
 
     const {todos,handleTodoCompleted,toggleTodoAsCompleted}=useTodos()
     console.log(todos);
 
+
+const searchParams=useSearchParams();
+    const todosfilter= searchParams.get('todos');
     let filtertodos=todos;
+
+    if(todosfilter==="active"){
+        filtertodos=filtertodos.filter((todo)=>!todo.completed)
+    }else if(todosfilter==="completed"){
+        filtertodos=filtertodos.filter((todo)=>todo.completed)
+    }
 
   return (
     <ul>
